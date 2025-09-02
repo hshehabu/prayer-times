@@ -105,9 +105,7 @@ const prayerWizard = new Scenes.WizardScene(
       ctx.scene.leave();
     } catch (error) {
       ctx.reply("An error occurred. Please try again or check the city name.");
-
       console.log(error);
-      throw error;
       ctx.scene.leave();
     }
   }
@@ -127,12 +125,12 @@ bot.command("prayertime", (ctx) => {
 });
 
 bot.on("text", (ctx) => {
-  if (ctx.scene && ctx.scene.current) {
-    return next();
+  // Only handle text messages that are not part of a scene
+  if (!ctx.scene || !ctx.scene.current) {
+    ctx.reply(
+      "I'm sorry, I didn't understand that. To get prayer times, type /prayertime."
+    );
   }
-  ctx.reply(
-    "I'm sorry, I didn't understand that. To get prayer times, type /prayertime."
-  );
 });
 
 bot.launch();

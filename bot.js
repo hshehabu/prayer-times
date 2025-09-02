@@ -127,6 +127,9 @@ bot.command("prayertime", (ctx) => {
 });
 
 bot.on("text", (ctx) => {
+  if (ctx.scene && ctx.scene.current) {
+    return next();
+  }
   ctx.reply(
     "I'm sorry, I didn't understand that. To get prayer times, type /prayertime."
   );

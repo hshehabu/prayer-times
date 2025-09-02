@@ -64,7 +64,7 @@ const prayerWizard = new Scenes.WizardScene(
   "prayer_wizard",
   async (ctx) => {
     await ctx.reply("Please enter the name of your city");
-    ctx.wizard.next();
+    return ctx.wizard.next();
   },
   async (ctx) => {
     const city = ctx.message.text;
@@ -111,6 +111,14 @@ const prayerWizard = new Scenes.WizardScene(
   }
 );
 
+// Add enter handler to reset wizard state
+prayerWizard.enter(async (ctx) => {
+  // Reset wizard to step 0
+  ctx.wizard.selectStep(0);
+  // Call the first step
+  return ctx.wizard.steps[0](ctx);
+});
+
 const stage = new Scenes.Stage([prayerWizard]);
 bot.use(stage.middleware());
 
@@ -121,6 +129,7 @@ bot.command("start", (ctx) => {
 });
 
 bot.command("prayertime", (ctx) => {
+  // Ensure we always start from the beginning of the wizard
   ctx.scene.enter("prayer_wizard");
 });
 

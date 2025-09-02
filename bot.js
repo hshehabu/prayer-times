@@ -140,4 +140,4 @@ http.createServer(bot.webhookCallback(webhookPath)).listen(3000, () => {
     `Webhook server is listening on port 3000 for path ${webhookPath}`
   );
 });
-bot.telegram.setWebhook("https://prayertimes.yenesuq.com");
+bot.telegram.setWebhook("https://prayer-times-gilt.vercel.app");
